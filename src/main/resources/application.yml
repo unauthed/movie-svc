@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: movie-svc
+  main:
+    banner-mode: "off"
+  jackson:
+    serialization:
+      indent-output: true
+  data:
+    rest:
+      basePath: /api/v1/
+          
+security:
+  ignored: "/**"
+  user:
+    password: hireme
+
+---
+
+spring:
+  profiles: default
+  data:
+    mongodb:
+      host: ${MONGO_HOST:localhost}
+      port: 27017
+      database: movies
+
+logging:
+  level:
+    org.springframework.data: info
+    org.springframework: warn
+    
+---
+
+spring:
+  profiles: docker
+  data:
+    mongodb:
+      host: ${MONGO_HOST:mongo}
+      port: 27017
+      database: movies
+  
+logging:
+  level:
+    org.springframework: error

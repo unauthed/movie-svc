@@ -1,0 +1,24 @@
+
+version: "3"
+
+services:
+
+  movie-svc:
+    image: unauthed/movie-svc
+    ports:
+      - "9090:8080"
+    depends_on:
+      - mongo
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - MONGO_HOST=mongo
+
+  mongo:
+    image: mongo:3.4
+    volumes:
+      - mongo-volume:/data/db
+
+volumes:
+
+  mongo-volume:
+    driver: local
